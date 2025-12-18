@@ -126,9 +126,27 @@
             </h1>
             
             <!-- Dates -->
-             <h2 class="text-white text-sm md:text-xl uppercase tracking-[0.2em] mb-8 font-light border-y border-regent-gold/30 py-2 px-6">
+             <h2 class="text-white text-sm md:text-xl uppercase tracking-[0.2em] mb-4 font-light border-y border-regent-gold/30 py-2 px-6">
                 August 12 — August 26, 2026
             </h2>
+
+            <!-- CLASSY COUNTDOWN TIMER -->
+            <div id="countdown-container" class="mb-8 flex gap-4 md:gap-8 justify-center items-center text-white">
+                <div class="text-center">
+                    <div id="days" class="font-serif text-3xl md:text-5xl font-bold">--</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest text-regent-gold mt-1">Days</div>
+                </div>
+                <div class="text-regent-gold/50 text-2xl font-light self-start mt-2">:</div>
+                <div class="text-center">
+                    <div id="hours" class="font-serif text-3xl md:text-5xl font-bold">--</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest text-regent-gold mt-1">Hours</div>
+                </div>
+                <div class="text-regent-gold/50 text-2xl font-light self-start mt-2">:</div>
+                <div class="text-center">
+                    <div id="minutes" class="font-serif text-3xl md:text-5xl font-bold">--</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest text-regent-gold mt-1">Mins</div>
+                </div>
+            </div>
 
             <p class="text-white text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto px-4">
                 Aboard the Most Luxurious Ship Ever Built<br>
@@ -588,5 +606,39 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set the date we're counting down to
+            const countDownDate = new Date("August 12, 2026 17:00:00").getTime();
+
+            // Update the count down every 1 second
+            const x = setInterval(function() {
+
+                // Get today's date and time
+                const now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                const distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                // Seconds not shown for elegance, but calculation exists if needed
+
+                // Display the result in the elements with id="days", "hours", etc.
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown-container").innerHTML = "<div class='font-serif text-3xl text-regent-gold'>Bon Voyage!</div>";
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
