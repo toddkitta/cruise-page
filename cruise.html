@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1f3f"> <!-- Android Chrome Brand Color -->
+    <title>Ultimate Alaska Adventure - Seven Seas Explorer</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config for Luxury Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        regent: {
+                            navy: '#0b1f3f',
+                            blue: '#1c3d6e',
+                            gold: '#c5a059',
+                            cream: '#f5f5f0',
+                            white: '#ffffff',
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5a059; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b08d4b; 
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(11,31,63,0.3), rgba(11,31,63,0.8));
+        }
+
+        .gold-border-bottom {
+            border-bottom: 2px solid #c5a059;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        
+        /* Timeline Line Logic: Hidden on mobile, Visible on MD+ */
+        .timeline-line {
+            position: relative;
+        }
+        
+        /* Only show the line on medium screens and up to avoid mobile clutter */
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 2px;
+                background-color: #c5a059;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-regent-cream font-sans text-regent-navy antialiased overflow-x-hidden">
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen min-h-[600px] w-full overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 w-full h-full">
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop" alt="Alaska Glacier" class="w-full h-full object-cover">
+            <div class="hero-gradient absolute inset-0"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 fade-in-up">
+            <div class="mb-4">
+                <i class="fas fa-anchor text-regent-gold text-4xl mb-4"></i>
+            </div>
+            
+            <!-- Personalized Tagline -->
+            <p class="text-regent-gold text-xs md:text-sm uppercase tracking-[0.3em] mb-2 font-bold">The Father & Son Voyage of a Lifetime</p>
+            
+            <!-- Main Title Personalized -->
+            <h1 class="text-white font-serif text-4xl md:text-7xl lg:text-8xl mb-6 drop-shadow-lg leading-tight">
+                Michael & Todd's<br><span class="text-regent-gold italic">Alaska</span>
+            </h1>
+            
+            <!-- Dates -->
+             <h2 class="text-white text-sm md:text-xl uppercase tracking-[0.2em] mb-8 font-light border-y border-regent-gold/30 py-2 px-6">
+                August 12 — August 26, 2026
+            </h2>
+
+            <p class="text-white text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto px-4">
+                Aboard the Most Luxurious Ship Ever Built<br>
+                <span class="font-bold border-b border-regent-gold pb-1 mt-2 inline-block">Seven Seas Explorer®</span>
+            </p>
+            
+            <!-- Trip Stats -->
+            <div class="mt-8 md:mt-12 flex flex-col md:flex-row gap-6 md:gap-8 text-white bg-regent-navy/80 p-6 rounded-lg backdrop-blur-sm border border-regent-gold/30 w-[90%] md:w-auto">
+                <div class="text-center px-4">
+                    <p class="text-regent-gold text-[10px] md:text-xs uppercase tracking-widest">Departure</p>
+                    <p class="text-lg md:text-xl font-serif">Vancouver</p>
+                </div>
+                <div class="hidden md:block border-r border-regent-gold/50"></div>
+                <!-- Mobile Divider -->
+                <div class="block md:hidden border-b border-regent-gold/30 w-1/2 mx-auto"></div>
+                
+                <div class="text-center px-4">
+                    <p class="text-regent-gold text-[10px] md:text-xs uppercase tracking-widest">Duration</p>
+                    <p class="text-lg md:text-xl font-serif">14 Nights</p>
+                </div>
+                <div class="hidden md:block border-r border-regent-gold/50"></div>
+                <!-- Mobile Divider -->
+                <div class="block md:hidden border-b border-regent-gold/30 w-1/2 mx-auto"></div>
+
+                <div class="text-center px-4">
+                    <p class="text-regent-gold text-[10px] md:text-xs uppercase tracking-widest">Return</p>
+                    <p class="text-lg md:text-xl font-serif">Vancouver</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- INTRODUCTION -->
+    <section class="py-16 md:py-20 px-6 max-w-5xl mx-auto text-center">
+        <h2 class="text-regent-gold font-sans text-xs md:text-sm font-bold uppercase tracking-widest mb-3">Welcome Aboard</h2>
+        <h3 class="font-serif text-3xl md:text-5xl text-regent-navy mb-8">Unrivaled Space at Sea</h3>
+        <p class="text-gray-600 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+            You are about to embark on a journey of a lifetime. The <span class="text-regent-navy font-bold">Seven Seas Explorer®</span> is spaciously intimate, breathlessly elegant, and perfectly staffed to offer Regent's special brand of all-inclusive luxury. From the icy majesty of Hubbard Glacier to the historic charm of Sitka, every detail has been curated for your comfort.
+        </p>
+    </section>
+
+    <!-- THE SHIP & SUITE GRID -->
+    <section class="bg-white py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 md:mb-24">
+                <!-- Ship Images Gallery - New Editorial Layout -->
+                <div class="relative h-[350px] md:h-[450px] w-full mb-4 lg:mb-0">
+                    <!-- Main Image (Exterior) - Anchored Top Left -->
+                    <div class="absolute top-0 left-0 w-[85%] h-[85%] z-0 group">
+                         <div class="absolute -inset-1 bg-regent-gold/20 rounded-lg transform -rotate-1 transition duration-500 group-hover:rotate-0"></div>
+                        <img src="https://media.architecturaldigest.com/photos/5654e91c587d37cb3479de02/16:9/w_1920,c_limit/regent-seven-seas-lede.jpg" alt="Seven Seas Explorer Exterior" class="relative rounded-lg shadow-xl w-full h-full object-cover">
+                    </div>
+                    <!-- Secondary Image (Pool Deck) - Overlapping Bottom Right -->
+                    <div class="absolute bottom-0 right-0 w-[55%] h-[55%] z-10 group">
+                        <img src="https://www.rssc.com/sites/default/files/C138_EXP_PoolDeck_Desktop.jpg" alt="Seven Seas Explorer Pool Deck" class="rounded-lg shadow-2xl w-full h-full object-cover border-4 border-white transform transition duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+
+                <!-- Ship Content -->
+                <div>
+                    <h4 class="text-regent-gold font-bold tracking-widest uppercase mb-2 text-sm">The Ship</h4>
+                    <h2 class="font-serif text-3xl md:text-4xl text-regent-navy mb-6">Seven Seas Explorer®</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Known as the most luxurious ship ever built, she features all-suite, all-balcony accommodations and superior service. Enjoy the <span class="font-bold">Serene Spa & Wellness™</span>, the stunning <span class="font-bold">Infinity Edge Pool</span>, and the ornate <span class="font-bold">Constellation Theater</span>.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start md:items-center text-regent-navy">
+                            <i class="fas fa-utensils w-8 text-regent-gold mt-1 md:mt-0 flex-shrink-0"></i>
+                            <span>Exquisite Dining: Compass Rose, Pacific Rim, Chartreuse</span>
+                        </li>
+                        <li class="flex items-start md:items-center text-regent-navy">
+                            <i class="fas fa-glass-martini-alt w-8 text-regent-gold mt-1 md:mt-0 flex-shrink-0"></i>
+                            <span>Unlimited Beverages, Fine Wines & Craft Cocktails</span>
+                        </li>
+                        <li class="flex items-start md:items-center text-regent-navy">
+                            <i class="fas fa-spa w-8 text-regent-gold mt-1 md:mt-0 flex-shrink-0"></i>
+                            <span>Unlimited Access to Canyon Ranch Spa Facilities</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Suite Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center flex-col-reverse lg:flex-row">
+                <!-- Suite Content -->
+                <div class="order-2 lg:order-1">
+                    <h4 class="text-regent-gold font-bold tracking-widest uppercase mb-2 text-sm">Your Sanctuary</h4>
+                    <h2 class="font-serif text-3xl md:text-4xl text-regent-navy mb-6">Serenity Suite F1</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Your personal haven on the high seas. The Serenity Suite offers expansive views and unrivaled comfort. Relax on your private balcony or indulge in the luxury of your Elite Slumber™ Bed.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-regent-cream p-4 rounded border-l-4 border-regent-gold">
+                            <h5 class="font-bold text-regent-navy text-sm md:text-base">Suite Size</h5>
+                            <p class="text-xs md:text-sm text-gray-600">Approx. 332 ft²</p>
+                        </div>
+                        <div class="bg-regent-cream p-4 rounded border-l-4 border-regent-gold">
+                            <h5 class="font-bold text-regent-navy text-sm md:text-base">Balcony</h5>
+                            <p class="text-xs md:text-sm text-gray-600">Approx. 83-132 ft²</p>
+                        </div>
+                    </div>
+
+                    <h5 class="font-serif text-xl text-regent-navy mb-4 border-b border-gray-200 pb-2">Suite Amenities</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 text-sm text-gray-700">
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> Valet Laundry Service</span>
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> L'Occitane® Amenities</span>
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> Champagne & Fruit</span>
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> 24-Hour Dining</span>
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> Custom Mini-Bar</span>
+                        <span class="flex items-center"><i class="fas fa-check text-regent-gold mr-3"></i> Plush Bathrobes</span>
+                    </div>
+                </div>
+                <!-- Suite Virtual Tour -->
+                <div class="order-1 lg:order-2 relative group">
+                    <div class="absolute -inset-2 bg-regent-navy/10 rounded-lg transform -rotate-2 transition duration-500 group-hover:-rotate-1"></div>
+                    <div class="relative rounded-lg shadow-2xl w-full h-[300px] md:h-[400px] overflow-hidden bg-black">
+                        <iframe 
+                            src="https://my.matterport.com/show/?m=XASPkdfQyLJ&play=1" 
+                            frameborder="0" 
+                            allowfullscreen 
+                            allow="xr-spatial-tracking" 
+                            class="w-full h-full">
+                        </iframe>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-2 italic md:hidden">Touch and drag to explore suite in 3D</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ITINERARY -->
+    <section class="bg-regent-cream py-16 md:py-20 relative">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12 md:mb-16">
+                <i class="fas fa-map-marked-alt text-regent-gold text-4xl mb-4"></i>
+                <h2 class="font-serif text-3xl md:text-4xl text-regent-navy">The Itinerary</h2>
+                <p class="text-gray-500 mt-2">14 Nights | Vancouver to Vancouver</p>
+            </div>
+
+            <div class="relative timeline-line">
+                <!-- Day 1 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Vancouver</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">British Columbia</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-regent-navy border-4 border-regent-gold shadow-lg w-16 h-16 rounded-full text-white font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>12
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Depart 5:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Cruising the Inside Passage</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">At Sea</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>13
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Cruising</p>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Ketchikan</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>14
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">7:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Juneau</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>15
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">11:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Skagway</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>16
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">7:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Icy Strait (Hoonah)</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>17
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">8:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+
+                 <!-- Day 7 -->
+                 <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">
+                            Hubbard Glacier
+                            <i class="fas fa-anchor text-regent-gold text-sm ml-2 align-middle"></i>
+                        </h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Cruising</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>18
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Scenic Cruising</p>
+                    </div>
+                </div>
+
+                <!-- Day 8 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Whittier</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>19
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">6:00 AM - 7:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 9 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">
+                            Hubbard Glacier
+                            <i class="fas fa-anchor text-regent-gold text-sm ml-2 align-middle"></i>
+                        </h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Cruising</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>20
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Scenic Cruising</p>
+                    </div>
+                </div>
+
+                <!-- Day 10 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">
+                            Sitka
+                            <i class="fas fa-anchor text-regent-gold text-sm ml-2 align-middle"></i>
+                        </h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>21
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">8:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 11 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Holkham Bay</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Cruising</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>22
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Scenic Cruising</p>
+                    </div>
+                </div>
+
+                <!-- Day 12 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">
+                            Klawock
+                            <i class="fas fa-anchor text-regent-gold text-sm ml-2 align-middle"></i>
+                        </h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Alaska</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>23
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">7:00 AM - 4:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 13 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Inside Passage</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">Cruising</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>24
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Cruising</p>
+                    </div>
+                </div>
+
+                <!-- Day 14 -->
+                <div class="relative z-10 mb-8 md:mb-12 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-3 md:w-5/12 text-center md:text-left px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Victoria</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">British Columbia</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-white border-4 border-regent-navy shadow-lg w-16 h-16 rounded-full text-regent-navy font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>25
+                    </div>
+                    <div class="order-3 md:order-1 md:w-5/12 px-4 md:px-8 text-center md:text-right">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">11:00 AM - 8:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Day 15 -->
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-center w-full">
+                    <div class="order-2 md:order-1 md:w-5/12 text-center md:text-right px-4 md:px-8 mb-2 md:mb-0">
+                        <h3 class="font-serif text-xl md:text-2xl text-regent-navy">Vancouver</h3>
+                        <p class="text-regent-gold font-bold text-xs md:text-sm uppercase">British Columbia</p>
+                    </div>
+                    <div class="order-1 md:order-2 z-10 flex items-center justify-center bg-regent-navy border-4 border-regent-gold shadow-lg w-16 h-16 rounded-full text-white font-bold text-sm shrink-0 mb-3 md:mb-0">
+                        Aug<br>26
+                    </div>
+                    <div class="order-3 md:order-3 md:w-5/12 px-4 md:px-8 text-center md:text-left">
+                        <p class="text-gray-500 font-bold text-sm md:text-base">Arrive 6:00 AM</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Key Legend -->
+            <div class="text-center mt-12 md:mt-16 pt-8 border-t border-regent-gold/30">
+                <span class="inline-flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200 text-regent-navy font-bold text-sm">
+                    <i class="fas fa-anchor text-regent-gold mr-3 text-lg"></i> Anchor Port
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- INCLUSIONS -->
+    <section class="py-16 bg-regent-navy text-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="font-serif text-2xl md:text-4xl mb-12">Always Included In Your Suite</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-bus text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Unlimited Shore Excursions</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-wine-glass-alt text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Fine Wines & Spirits</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-wifi text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Unlimited WiFi</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-tshirt text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Valet Laundry</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-dollar-sign text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Pre-Paid Gratuities</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-utensils text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Specialty Dining</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-glass-whiskey text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">Custom In-Suite Mini Bar</p>
+                </div>
+
+                <div class="flex flex-col items-center group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-regent-gold flex items-center justify-center mb-4 group-hover:bg-regent-gold group-hover:text-regent-navy transition duration-300">
+                        <i class="fas fa-concierge-bell text-xl md:text-2xl"></i>
+                    </div>
+                    <p class="text-xs md:text-sm font-light uppercase tracking-wider">24-Hour Dining</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-regent-navy text-regent-gold py-12 border-t border-regent-gold/20">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="font-serif text-3xl mb-4 italic">Bon Voyage</h2>
+            <p class="text-regent-cream/60 mb-8 font-light text-sm md:text-base">
+                Prepared for your upcoming adventure in the Serenity Suite.<br>
+                Seven Seas Explorer | August 2026
+            </p>
+            <div class="w-24 h-1 bg-regent-gold mx-auto mb-8"></div>
+            <p class="text-[10px] md:text-xs text-regent-cream/40 uppercase tracking-widest">
+                Luxury Alaska Cruise Brochure
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
