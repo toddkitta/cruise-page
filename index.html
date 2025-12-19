@@ -14,6 +14,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -98,6 +101,45 @@
                 background-color: #c5a059;
                 transform: translateX(-50%);
             }
+        }
+
+        /* Leaflet Map Customization */
+        .leaflet-popup-content-wrapper {
+            background: #0b1f3f;
+            color: #ffffff;
+            border: 2px solid #c5a059;
+            border-radius: 4px;
+            font-family: 'Lato', sans-serif;
+        }
+        .leaflet-popup-content {
+            margin: 10px;
+        }
+        .leaflet-popup-tip {
+            background: #c5a059;
+        }
+        .leaflet-container a.leaflet-popup-close-button {
+            color: #c5a059;
+        }
+        
+        /* Custom Numbered Pins */
+        .number-icon {
+            background-color: #0b1f3f; /* Regent Navy */
+            color: #c5a059; /* Regent Gold */
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px; /* Centering vertically */
+            font-weight: bold;
+            font-family: 'Playfair Display', serif; /* Matching serif font */
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+        .number-icon:hover {
+            transform: scale(1.2);
+            background-color: #c5a059;
+            color: #0b1f3f;
+            border-color: #0b1f3f;
         }
     </style>
 </head>
@@ -517,6 +559,11 @@
 
             </div>
 
+             <!-- INTERACTIVE MAP CONTAINER -->
+             <div class="mt-16 w-full h-[500px] rounded-lg shadow-xl overflow-hidden border-4 border-regent-navy/10 relative z-20">
+                <div id="map" class="w-full h-full"></div>
+            </div>
+
             <!-- Key Legend -->
             <div class="text-center mt-12 md:mt-16 pt-8 border-t border-regent-gold/30">
                 <span class="inline-flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200 text-regent-navy font-bold text-sm">
@@ -606,38 +653,128 @@
         </div>
     </footer>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Set the date we're counting down to
+            // --- COUNTDOWN TIMER ---
             const countDownDate = new Date("August 12, 2026 17:00:00").getTime();
-
-            // Update the count down every 1 second
             const x = setInterval(function() {
-
-                // Get today's date and time
                 const now = new Date().getTime();
-
-                // Find the distance between now and the count down date
                 const distance = countDownDate - now;
-
-                // Time calculations for days, hours, minutes and seconds
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                // Seconds not shown for elegance, but calculation exists if needed
-
-                // Display the result in the elements with id="days", "hours", etc.
                 document.getElementById("days").innerHTML = days;
                 document.getElementById("hours").innerHTML = hours;
                 document.getElementById("minutes").innerHTML = minutes;
-
-                // If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(x);
                     document.getElementById("countdown-container").innerHTML = "<div class='font-serif text-3xl text-regent-gold'>Bon Voyage!</div>";
                 }
             }, 1000);
+
+            // --- LEAFLET MAP ---
+            const map = L.map('map', {
+                scrollWheelZoom: false
+            }).setView([55.0, -135.0], 5);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Port Data
+            const ports = [
+                { name: "Vancouver", coords: [49.2827, -123.1207], info: "<b>Start & End</b><br>Aug 12 & 26" },
+                { name: "Ketchikan", coords: [55.3422, -131.6461], info: "<b>Stop 2</b><br>Aug 14: 7:00 AM - 5:00 PM" },
+                { name: "Juneau", coords: [58.3019, -134.4197], info: "<b>Stop 3</b><br>Aug 15: 11:00 AM - 9:00 PM" },
+                { name: "Skagway", coords: [59.4583, -135.3139], info: "<b>Stop 4</b><br>Aug 16: 7:00 AM - 9:00 PM" },
+                { name: "Icy Strait (Hoonah)", coords: [58.1097, -135.4436], info: "<b>Stop 5</b><br>Aug 17: 8:00 AM - 6:00 PM" },
+                { name: "Hubbard Glacier", coords: [60.0383, -139.4633], info: "<b>Stop 6</b><br>Aug 18 & 20: Scenic Cruising<br><i>Anchor Port</i>" },
+                { name: "Whittier", coords: [60.7731, -148.6839], info: "<b>Stop 7</b><br>Aug 19: 6:00 AM - 7:00 PM" },
+                { name: "Sitka", coords: [57.0531, -135.3300], info: "<b>Stop 8</b><br>Aug 21: 8:00 AM - 6:00 PM<br><i>Anchor Port</i>" },
+                { name: "Holkham Bay", coords: [57.7784, -133.6425], info: "<b>Stop 9</b><br>Aug 22: Scenic Cruising" },
+                { name: "Klawock", coords: [55.5547, -133.0958], info: "<b>Stop 10</b><br>Aug 23: 7:00 AM - 4:00 PM<br><i>Anchor Port</i>" },
+                { name: "Victoria", coords: [48.4284, -123.3656], info: "<b>Stop 11</b><br>Aug 25: 11:00 AM - 8:00 PM" }
+            ];
+
+            // 1. Add Markers and collect raw coords
+            const rawLatlngs = [];
+            ports.forEach((port, index) => {
+                const numberIcon = L.divIcon({
+                    className: 'number-icon',
+                    html: `<div>${index + 1}</div>`,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15],
+                    popupAnchor: [0, -15]
+                });
+                const marker = L.marker(port.coords, { icon: numberIcon }).addTo(map);
+                marker.bindPopup(`<div class="text-center"><h3 class="font-serif text-regent-gold text-lg mb-1">${port.name}</h3><p class="text-sm">${port.info}</p></div>`);
+                rawLatlngs.push(port.coords);
+            });
+            // Close the loop for the visual line
+            rawLatlngs.push(ports[0].coords);
+
+            // 2. Curve Generator Function (Cardinal Spline)
+            function getCurvePoints(points, tension = 0.5, numOfSegments = 16) {
+                var _pts = [], res = [], 
+                    x, y, t1x, t2x, t1y, t2y, 
+                    c1, c2, c3, c4, st, t, i;
+
+                // Clone points
+                for (i = 0; i < points.length; i++) _pts.push(points[i].slice());
+
+                // Duplicate start and end points to anchor the curve at the tips without closing strictly if not needed,
+                // but since we manually closed the loop in rawLatlngs, we treat it as a continuous sequence.
+                _pts.unshift(points[0]);
+                _pts.push(points[points.length - 1]);
+
+                for (i = 1; i < _pts.length - 2; i++) {
+                    for (t = 0; t <= numOfSegments; t++) {
+                        // Steps for interpolation
+                        st = t / numOfSegments;
+                        
+                        // Calc tension vectors
+                        t1x = (_pts[i+1][0] - _pts[i-1][0]) * tension;
+                        t2x = (_pts[i+2][0] - _pts[i][0]) * tension;
+                        t1y = (_pts[i+1][1] - _pts[i-1][1]) * tension;
+                        t2y = (_pts[i+2][1] - _pts[i][1]) * tension;
+
+                        // Calc cardinals
+                        c1 =   2 * Math.pow(st, 3) - 3 * Math.pow(st, 2) + 1; 
+                        c2 = -2 * Math.pow(st, 3) + 3 * Math.pow(st, 2); 
+                        c3 =       Math.pow(st, 3) - 2 * Math.pow(st, 2) + st; 
+                        c4 =       Math.pow(st, 3) -     Math.pow(st, 2);
+
+                        // Calc x and y (Lat and Lng)
+                        x = c1 * _pts[i][0] + c2 * _pts[i+1][0] + c3 * t1x + c4 * t2x;
+                        y = c1 * _pts[i][1] + c2 * _pts[i+1][1] + c3 * t1y + c4 * t2y;
+
+                        res.push([x, y]);
+                    }
+                }
+                return res;
+            }
+
+            // 3. Generate smooth path
+            const curvedLatlngs = getCurvePoints(rawLatlngs, 0.45, 20);
+
+            // 4. Draw Route Line with organic curves
+            const polyline = L.polyline(curvedLatlngs, {
+                color: '#c5a059', 
+                weight: 3, 
+                opacity: 0.9, 
+                dashArray: '5, 10', // More spaced out "trail" look
+                lineCap: 'round'
+            }).addTo(map);
+            
+            setTimeout(() => {
+                map.invalidateSize();
+                map.fitBounds(polyline.getBounds(), {padding: [50, 50]});
+            }, 250);
         });
     </script>
 </body>
